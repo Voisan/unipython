@@ -5,7 +5,7 @@ from core.handlers import ChangeRequest, InstructorHandler, MethodologyDepartmen
 from core.programming import ProgrammingCourse
 from core.design import DesignCourse
 from core.science import ScienceCourse
-
+from core.database import init_db, insert_course, fetch_all
 # Создание платформы
 address = Address("Россия", "Москва", "Пушкина", "1","sdamnamaximum.ru")
 platform = Platform(address)
@@ -101,3 +101,11 @@ logger.info("Обработка запроса на изменение: %s дл�
 result = instructor.handle(request)
 logger.info("Результат обработки запроса: %s", result)
 print("\nРезультат обработки запроса на изменение:", result)
+
+conn = init_db()
+data = course1.to_dict()
+insert_course(conn, 'programming_course', **data)
+data = course2.to_dict()
+insert_course(conn, 'design_course', **data)
+data = course3.to_dict()
+insert_course(conn, 'science_course', **data)
